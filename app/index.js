@@ -72,6 +72,12 @@ module.exports = yeoman.generators.Base.extend({
       );
 
       this.fs.copyTpl(
+        this.templatePath('_karma.conf.js'),
+        this.destinationPath('karma.conf.js'),
+        templateContext
+      );
+
+      this.fs.copyTpl(
         this.templatePath('_index.html'),
         this.destinationPath(this._getStaticPath('index.html')),
         templateContext
@@ -85,6 +91,11 @@ module.exports = yeoman.generators.Base.extend({
       this.fs.copy(
         this.templatePath('js/main.js'),
         this.destinationPath(this._getStaticPath('js/main.js'))
+      );
+
+      this.fs.copy(
+        this.templatePath('js/tests/text_index.js'),
+        this.destinationPath(this._getStaticPath('js/tests/test_index.js'))
       );
 
       this.fs.copy(
@@ -125,6 +136,13 @@ module.exports = yeoman.generators.Base.extend({
       'grunt-newer',
       'load-grunt-tasks',
       'extract-text-webpack-plugin',
+      'karma',
+      'karma-chrome-launcher',
+      'karma-jasmine',
+      'karma-jasmine-ajax',
+      'karma-phantomjs-launcher',
+      'karma-sourcemap-launcher',
+      'karma-webpack'
     ], { save: true });
   }
 });
