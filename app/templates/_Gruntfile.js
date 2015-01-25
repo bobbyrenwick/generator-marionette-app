@@ -1,6 +1,8 @@
 var path = require('path');
 var webpack = require('webpack');
+var _ = require('lodash');
 var webpackConfig = require('./webpack.config.js');
+
 
 module.exports = function(grunt) {
     'use strict';
@@ -18,6 +20,36 @@ module.exports = function(grunt) {
             }
         },
         clean: [path.join(__dirname, '<%= staticPath %>/dist/**/*')],
+        karma: {
+          options: {
+            configFile: 'karma.conf.js',
+          },
+          dev: {
+            browsers: ['Chrome'],
+            singleRun: false,
+            autoWatch: true,
+            browserDisconnectTimeout: 999999,
+            browserNoActivityTimeout: 999999,
+            webpack: _.extend(
+                _.clone(webpackConfig),
+                {
+                    watch: true,
+                    devtool: 'inline-source-map'
+                }
+            )
+          },
+          prod: {
+            singleRun: true,
+            autoWatch: false,
+            browsers: ['PhantomJS'],
+            webpack: _.extend(
+                _.clone(webpackConfig),
+                {
+                    watch: false,
+                }
+            )
+          }
+        },
         webpack: {
             options: webpackConfig,
             dev: {
@@ -45,4 +77,6 @@ module.exports = function(grunt) {
     grunt.registerTask('lint', ['newer:jshint:all']);
     grunt.registerTask('dev', ['clean', 'webpack:dev']);
     grunt.registerTask('build', ['webpack:prod']);
+    grunt.registerTask('test', ['karma:prod']);
+    grunt.registerTask('test:dev', ['karma:dev']);
 };

@@ -94,8 +94,13 @@ module.exports = yeoman.generators.Base.extend({
       );
 
       this.fs.copy(
-        this.templatePath('js/tests/text_index.js'),
+        this.templatePath('js/tests/test_index.js'),
         this.destinationPath(this._getStaticPath('js/tests/test_index.js'))
+      );
+
+      this.fs.copy(
+        this.templatePath('js/tests/initial_test.js'),
+        this.destinationPath(this._getStaticPath('js/tests/initial_test.js'))
       );
 
       this.fs.copy(
@@ -123,7 +128,8 @@ module.exports = yeoman.generators.Base.extend({
     this.npmInstall([
       'backbone.marionette',
       'backbone.select',
-      'es6-loader',
+      'lodash',
+      'traceur-loader',
       'handlebars-loader',
       'style-loader',
       'css-loader',
@@ -136,12 +142,13 @@ module.exports = yeoman.generators.Base.extend({
       'grunt-newer',
       'load-grunt-tasks',
       'extract-text-webpack-plugin',
+      'grunt-karma',
       'karma',
       'karma-chrome-launcher',
       'karma-jasmine',
       'karma-jasmine-ajax',
       'karma-phantomjs-launcher',
-      'karma-sourcemap-launcher',
+      'karma-sourcemap-loader',
       'karma-webpack'
     ], { save: true });
   }

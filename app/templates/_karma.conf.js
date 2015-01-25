@@ -1,7 +1,3 @@
-var webpackConfig = require('./webpack.config.js');
-webpackConfig.watch = false;
-webpackConfig.devtool = 'inline-source-map';
-
 var path = require('path');
 var testsIndex = path.join(__dirname, '<%= staticPath %>/js/tests/test_index.js');
 var preprocessors = {};
@@ -44,17 +40,8 @@ module.exports = function(config) {
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
     logLevel: config.LOG_DEBUG,
 
-    // start these browsers
-    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],
-
-    webpack: webpackConfig,
-
     webpackServer: {
         noInfo: true
     },
-
-    singleRun: true,
-    autoWatch: false,
   });
 };

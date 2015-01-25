@@ -38,7 +38,7 @@ module.exports = {
             },
             {
                 test: /\.js$/,
-                loader: 'es6-loader'
+                loader: 'traceur-loader'
             }
         ]
     },
