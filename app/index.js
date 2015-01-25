@@ -46,23 +46,35 @@ module.exports = yeoman.generators.Base.extend({
     return this.staticPath + '/' + furtherPath;
   },
 
-  writing: {
-    app: function () {
-      this.fs.copy(
-        this.templatePath('_package.json'),
-        this.destinationPath('package.json')
-      );
-    },
+  writing: function() {
+      var templateContext = {
+        appName: this.appName,
+        staticPath: this.staticPath,
+        publicPath: this.publicPath,
+      };
 
-    scaffold: function() {
+      this.fs.copyTpl(
+        this.templatePath('_package.json'),
+        this.destinationPath('package.json'),
+        templateContext
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('_Gruntfile.js'),
+        this.destinationPath('Gruntfile.js'),
+        templateContext
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('_webpack.config.js'),
+        this.destinationPath('webpack.config.js'),
+        templateContext
+      );
+
       this.fs.copyTpl(
         this.templatePath('_index.html'),
         this.destinationPath(this._getStaticPath('index.html')),
-        {
-          appName: this.appName,
-          staticPath: this.staticPath,
-          publicPath: this.publicPath,
-        }
+        templateContext
       );
 
       this.fs.copy(
@@ -76,25 +88,24 @@ module.exports = yeoman.generators.Base.extend({
       );
 
       this.fs.copy(
-        this.templatePath('styles/normalize.css'),
-        this.destinationPath(this._getStaticPath('styles/normalize.css'))
+        this.templatePath('styles/normalize.less'),
+        this.destinationPath(this._getStaticPath('styles/normalize.less'))
       );
-    },
 
-    projectfiles: function () {
+      this.fs.copy(
+        this.templatePath('styles/main.less'),
+        this.destinationPath(this._getStaticPath('styles/main.less'))
+      );
+
       this.fs.copy(
         this.templatePath('editorconfig'),
         this.destinationPath('.editorconfig')
       );
+
       this.fs.copy(
         this.templatePath('jshintrc'),
         this.destinationPath('.jshintrc')
       );
-    },
-
-    gruntfile: function () {
-      this.gruntfile.registerTask('lint', ['newer:jshint:all']);
-    }
   },
 
   install: function () {
@@ -102,11 +113,18 @@ module.exports = yeoman.generators.Base.extend({
       'backbone.marionette',
       'backbone.select',
       'es6-loader',
-      'handlebars',
+      'handlebars-loader',
+      'style-loader',
+      'css-loader',
+      'less-loader',
+      'handlebars@^1.3.0', // needed because handlebars-loader doesn't yet support v2
       'jquery',
       'grunt-webpack',
       'grunt-contrib-jshint',
+      'grunt-contrib-clean',
       'grunt-newer',
+      'load-grunt-tasks',
+      'extract-text-webpack-plugin',
     ], { save: true });
   }
 });
