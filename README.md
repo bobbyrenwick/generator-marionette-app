@@ -1,4 +1,4 @@
-# generator-marionette-app
+# generator-marionette-app [![Build Status](https://travis-ci.org/bobbyrenwick/generator-marionette-app.svg)](https://travis-ci.org/bobbyrenwick/generator-marionette-app)
 Yeoman generator for generating marionette applications
 
 ## Features
