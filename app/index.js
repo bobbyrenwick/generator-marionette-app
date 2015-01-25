@@ -125,31 +125,33 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   install: function () {
-    this.npmInstall([
-      'backbone.marionette',
-      'backbone.select',
-      'lodash',
-      'traceur-loader',
-      'handlebars-loader',
-      'style-loader',
-      'css-loader',
-      'less-loader',
-      'handlebars@^1.3.0', // needed because handlebars-loader doesn't yet support v2
-      'jquery',
-      'grunt-webpack',
-      'grunt-contrib-jshint',
-      'grunt-contrib-clean',
-      'grunt-newer',
-      'load-grunt-tasks',
-      'extract-text-webpack-plugin',
-      'grunt-karma',
-      'karma',
-      'karma-chrome-launcher',
-      'karma-jasmine',
-      'karma-jasmine-ajax',
-      'karma-phantomjs-launcher',
-      'karma-sourcemap-loader',
-      'karma-webpack'
-    ], { save: true });
+    if (!this.options['skip-install']) {
+      this.npmInstall([
+        'backbone.marionette',
+        'backbone.select',
+        'lodash',
+        'traceur-loader',
+        'handlebars-loader',
+        'style-loader',
+        'css-loader',
+        'less-loader',
+        'handlebars@^1.3.0', // needed because handlebars-loader doesn't yet support v2
+        'jquery',
+        'grunt-webpack',
+        'grunt-contrib-jshint',
+        'grunt-contrib-clean',
+        'grunt-newer',
+        'load-grunt-tasks',
+        'extract-text-webpack-plugin',
+        'grunt-karma',
+        'karma',
+        'karma-chrome-launcher',
+        'karma-jasmine',
+        'karma-jasmine-ajax',
+        'karma-phantomjs-launcher',
+        'karma-sourcemap-loader',
+        'karma-webpack'
+      ], { save: true });
+    }
   }
 });
